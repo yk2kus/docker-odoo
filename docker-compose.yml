@@ -1,0 +1,16 @@
+version: '3'
+services:
+  odoo:
+    container_name: odoo110
+    ports:
+     - "11073:11073"
+     - "11072:11072"
+     - "5432:5432"
+    network_mode: host
+    volumes:
+       - $HOME:$HOME
+       - $HOME/.netrc:/opt/.netrc
+       - $HOME/.pgpass:/opt/.pgpass
+    build:
+      context: .
+    restart: always
