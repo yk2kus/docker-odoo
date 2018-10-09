@@ -22,7 +22,7 @@ RUN apt-get install -y --no-install-recommends \
     postgresql-client \
     curl
 RUN useradd --system  --home /opt --shell /bin/bash  --uid 1000 odoo && \
-    mkdir -p /opt/odoo && chown -R odoo:odoo  /opt
+    mkdir -p /opt/odoo
 
 
 # WKHTMLTOPDF dependencies end
@@ -34,15 +34,17 @@ RUN curl -o wkhtmltox.tar.xz -SL https://github.com/wkhtmltopdf/wkhtmltopdf/rele
     && cp wkhtmltox/bin/* /usr/local/bin/ \
     && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
 
-
 RUN git clone https://www.github.com/odoo/odoo --depth 1 --branch 11.0 /opt/odoo/odoo
 RUN pip3 install --upgrade pip
 RUN pip3 install -r /opt/odoo/odoo/requirements.txt
 RUN mkdir /opt/odoo/extra-addons
 RUN mkdir /etc/odoo
 COPY ./odoo.conf /opt/odoo/etc/odoo.conf
-EXPOSE 11073
+#RUN chown -R odoo:odoo  /opt/
 USER odoo
 WORKDIR /opt/odoo/odoo
-RUN /bin/bash -c "./odoo-bin -c /opt/odoo/etc/odoo.conf"
+#RUN /bin/bash -c "./odoo-bin -c /opt/odoo/etc/odoo.conf"
 #ENTRYPOINT ["./odoo-bin -c /opt/odoo/etc/odoo.conf"]
+SHELL ["/bin/bash", "-c"]
+ENTRYPOINT ["./odoo-bin"]
+# -c /opt/odoo/etc/odoo.conf
