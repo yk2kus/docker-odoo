@@ -20,7 +20,8 @@ RUN apt-get install -y --no-install-recommends \
     node-less \
     python3-setuptools \
     postgresql-client \
-    curl
+    curl \
+    lxc
 RUN useradd --system  --home /opt --shell /bin/bash  --uid 1000 odoo && \
     mkdir -p /opt/odoo
 
