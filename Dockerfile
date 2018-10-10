@@ -39,7 +39,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r /opt/odoo/requirements.txt
 RUN mkdir /opt/odoo/extra-addons
 COPY ./odoo.conf /opt/odoo/etc/odoo.conf
-#RUN chown -R odoo:odoo  /opt/
+RUN chown -R odoo:odoo  /opt/
 USER odoo
 WORKDIR /opt/odoo
 #RUN /bin/bash -c "./odoo-bin -c /opt/odoo/etc/odoo.conf"
