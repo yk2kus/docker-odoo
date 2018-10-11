@@ -2,15 +2,13 @@ version: '3'
 services:
   odoo:
     container_name: odoo110
-    ports:
-     - "11073:11073"
-     - "11072:11072"
-     - "5432:5432"
-    network_mode: host
-    volumes:
-       - $HOME:$HOME
-       - $HOME/.netrc:/opt/.netrc
-       - $HOME/.pgpass:/opt/.pgpass
     build:
       context: .
-    restart: always
+    network_mode: host
+    volumes: 
+#     - $HOME/.ssh/id_rsa:/opt/.ssh/id_rsa
+     - $HOME/.local/share/Odoo:/opt/.local/share/Odoo
+#    restart: always 
+# this restart policy should be used only after image is okay, otherwise it creates huge problem 
+#starting again and again not letting new changes refelect
+
