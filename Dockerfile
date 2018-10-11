@@ -39,12 +39,11 @@ RUN git clone https://www.github.com/odoo/odoo --depth 1 --branch 11.0 /opt/odoo
 RUN pip3 install --upgrade pip
 RUN pip3 install -r /opt/odoo/requirements.txt
 RUN mkdir /opt/odoo/extra-addons
+shell ["/bin/bash", "-c"]
 COPY ./odoo.conf /opt/odoo/etc/odoo.conf
 RUN chown -R odoo:odoo  /opt/
+COPY ./entrypoint.sh /
+RUN chown odoo /entrypoint.sh
 USER odoo
 WORKDIR /opt/odoo
-#RUN /bin/bash -c "./odoo-bin -c /opt/odoo/etc/odoo.conf"
-#ENTRYPOINT ["./odoo-bin -c /opt/odoo/etc/odoo.conf"]
-SHELL ["/bin/bash", "-c"]
-ENTRYPOINT ["./odoo-bin"]
-# -c /opt/odoo/etc/odoo.conf
+ENTRYPOINT ["./odoo-bin", "-c", "/opt/odoo/etc/odoo.conf"]
