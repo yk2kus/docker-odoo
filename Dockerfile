@@ -21,7 +21,12 @@ RUN apt-get install -y --no-install-recommends \
     python3-setuptools \
     postgresql-client \
     curl \
-    lxc
+    lxc \
+    # START wkhtmltopdf libraries
+    libxrender1 \
+    fontconfig \
+    xvfb
+    # END wkhtmltopdf libraries
 RUN useradd --system  --home /opt --shell /bin/bash  --uid 1000 odoo && \
     mkdir -p /opt/odoo
 
